@@ -1,4 +1,4 @@
-from pymodbus.client.sync import ModbusTcpClient
+from pymodbus3.client.sync import ModbusTcpClient
 
 client10 = ModbusTcpClient('192.168.95.10')
 client11 = ModbusTcpClient('192.168.95.11')
