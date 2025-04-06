@@ -1,24 +1,18 @@
 from pymodbus.client import ModbusTcpClient
+import sys
 
-client10 = ModbusTcpClient('192.168.95.10')
-client11 = ModbusTcpClient('192.168.95.11')
-client12 = ModbusTcpClient('192.168.95.12')
-client13 = ModbusTcpClient('192.168.95.13')
+args = sys.argv
+valve1 = ModbusTcpClient('192.168.95.10')
+valve2 = ModbusTcpClient('192.168.95.12')
 
 try:
-
-    while True:
-        res = client10.write_register(1, 65535)
-        print("10:", res)
-        res = client11.write_register(1, 65535)
-        print("11:", res)
-        res = client12.write_register(1, 0)
-        print("12:", res)
-        res = client13.write_register(1, 0)
-        print("13:", res)
-
+    match args[1]:
+        case fullopen:
+            while True:
+                valve1.write_register(1, 65535)
+        case shutoff:
+            while True:
+                valve2.write_register(1, 0)
 except KeyboardInterrupt:
-    client10.close()
-    client11.close()
-    client12.close()
-    client13.close()
+    valve1.close()
+    valve2.close()
